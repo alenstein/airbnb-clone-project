@@ -1,181 +1,227 @@
-# Overview of the AirBnB Clone
-
+# 🏡 Overview of the Airbnb Clone
 
 ## 🚀 Objective
 
 The backend for the Airbnb Clone project is designed to provide a robust and scalable foundation for managing user interactions, property listings, bookings, and payments. This backend will support various functionalities required to mimic the core features of Airbnb, ensuring a smooth experience for users and hosts.
 
-## 🏆 Project Goals
-  1. User Management: Implement a secure system for user registration, authentication, and profile management.
-  2. Property Management: Develop features for property listing creation, updates, and retrieval.
-  3. Booking System: Create a booking mechanism for users to reserve properties and manage booking details.
-  4. Payment Processing: Integrate a payment system to handle transactions and record payment details.
-  5. Review System: Allow users to leave reviews and ratings for properties.
-  6. Data Optimization: Ensure efficient data retrieval and storage through database optimizations.
+---
 
+## 🏆 Project Goals
+
+1. **User Management**: Implement a secure system for user registration, authentication, and profile management.  
+2. **Property Management**: Develop features for property listing creation, updates, and retrieval.  
+3. **Booking System**: Create a booking mechanism for users to reserve properties and manage booking details.  
+4. **Payment Processing**: Integrate a payment system to handle transactions and record payment details.  
+5. **Review System**: Allow users to leave reviews and ratings for properties.  
+6. **Data Optimization**: Ensure efficient data retrieval and storage through database optimizations.
+
+---
 
 ## 🛠️ Feature Breakdown
 
-  1. API Documentation
-    - OpenAPI Standard: The backend APIs are documented using the OpenAPI standard to ensure clarity and ease of integration.
-    - Django REST Framework: Provides a comprehensive RESTful API for handling CRUD operations on user and property data.
-    - GraphQL: Offers a flexible and efficient query mechanism for interacting with the backend.
+### 1. API Documentation
+- **OpenAPI Standard**: Ensures clarity and ease of integration.  
+- **Django REST Framework**: Provides a RESTful API for handling CRUD operations.  
+- **GraphQL**: Offers a flexible and efficient query mechanism.
 
-  2. User Authentication
-    - Endpoints: /users/, /users/{user_id}/
-    - Features: Register new users, authenticate, and manage user profiles.
+### 2. User Authentication
+- **Endpoints**: `/users/`, `/users/{user_id}/`  
+- **Features**: Register new users, authenticate, and manage user profiles.
 
-  3. Property Management
-    - Endpoints: /properties/, /properties/{property_id}/
-    - Features: Create, update, retrieve, and delete property listings.
+### 3. Property Management
+- **Endpoints**: `/properties/`, `/properties/{property_id}/`  
+- **Features**: Create, update, retrieve, and delete property listings.
 
-  4. Booking System
-    - Endpoints: /bookings/, /bookings/{booking_id}/
-    - Features: Make, update, and manage bookings, including check-in and check-out details.
+### 4. Booking System
+- **Endpoints**: `/bookings/`, `/bookings/{booking_id}/`  
+- **Features**: Make, update, and manage bookings, including check-in and check-out.
 
-  5. Payment Processing
-    - Endpoints: /payments/
-    - Features: Handle payment transactions related to bookings.
+### 5. Payment Processing
+- **Endpoints**: `/payments/`  
+- **Features**: Handle payment transactions related to bookings.
 
-  6. Review System
-    - Endpoints: /reviews/, /reviews/{review_id}/
-    - Features: Post and manage reviews for properties.
+### 6. Review System
+- **Endpoints**: `/reviews/`, `/reviews/{review_id}/`  
+- **Features**: Post and manage reviews for properties.
 
-  7. Database Optimizations
-    - Indexing: Implement indexes for fast retrieval of frequently accessed data.
-    - Caching: Use caching strategies to reduce database load and improve performance.
-## Database Design
-  1. Users
-    Represents individuals using the platform, either as guests or hosts.
+### 7. Database Optimizations
+- **Indexing**: Implement indexes for fast retrieval.  
+- **Caching**: Use caching strategies to improve performance.
 
-   Key Fields:
+---
 
-   - id: Unique identifier for each user
+## 🗃️ Database Design
 
-   - name: Full name of the user
+### 1. Users
 
-   - email: Unique email address
+**Represents** individuals using the platform (guests or hosts).
 
-   - password_hash: Securely stored password
- 
-   - role: Specifies whether the user is a guest, host, or admin
+**Key Fields:**
+- `id`
+- `name`
+- `email`
+- `password_hash`
+- `role` (guest, host, admin)
 
+**Relationships:**
+- A user can own multiple properties.
+- A user can make multiple bookings.
+- A user can leave reviews.
 
-  Relationships:
+---
 
-   - A user can own multiple Properties
+### 2. Properties
 
-   - A user can make multiple Bookings
+**Represents** rental listings created by hosts.
 
-   - A user can leave Reviews for Properties
+**Key Fields:**
+- `id`
+- `user_id` (foreign key)
+- `title`
+- `location`
+- `price_per_night`
 
+**Relationships:**
+- A property belongs to one user.
+- A property can have many bookings.
+- A property can have multiple reviews.
 
-  2. Properties
-  Represents the rental listings created by hosts.
+---
 
-  Key Fields:
+### 3. Bookings
 
-   - id: Unique identifier for each property
+**Represents** reservations made by guests.
 
-   - user_id: Foreign key referencing the owner (host)
+**Key Fields:**
+- `id`
+- `user_id` (guest)
+- `property_id`
+- `start_date`
+- `end_date`
 
-   - title: Name/title of the listing
+**Relationships:**
+- A booking belongs to one user and one property.
+- A booking may be linked to one payment.
 
-   - location: Address or coordinates of the property
+---
 
-   - price_per_night: Cost to rent per night
+### 4. Reviews
 
+**Represents** guest feedback.
 
-  Relationships:
+**Key Fields:**
+- `id`
+- `user_id` (reviewer)
+- `property_id`
+- `rating`
+- `comment`
 
-   - A property belongs to one User
+**Relationships:**
+- A review belongs to one user and one property.
 
-   - A property can have many Bookings
+---
 
-   - A property can have multiple Reviews
+### 5. Payments
 
+**Represents** transactions for bookings.
 
-  3. Bookings
-  Represents reservations made by guests for a specific property.
+**Key Fields:**
+- `id`
+- `booking_id` (foreign key)
+- `amount`
+- `payment_method`
+- `status`
 
-  Key Fields:
+**Relationships:**
+- A payment is associated with one booking.
 
-   - id: Unique identifier for each booking
+---
 
-   - user_id: Foreign key referencing the guest
+## 🔐 API Security
 
-   - property_id: Foreign key referencing the booked property
-  
-   - start_date: Booking start date
+Securing backend APIs is critical to ensure the safety, reliability, and integrity of the platform. Below are the measures taken:
 
-   - end_date: Booking end date
+### 1. Authentication
 
+Only verified users can access protected resources using JWT or session-based authentication.
 
-  Relationships:
+- Ensures users are who they claim to be  
+- Protects accounts from unauthorized access  
 
-   - A booking belongs to one User and one Property
+> **Why it matters**: Safeguards user profiles, bookings, and listings.
 
-   - A booking may be linked to one Payment
+---
 
-  
-4. Reviews
-  Represents feedback left by guests after their stay.
+### 2. Authorization
 
-  Key Fields:
+Access control based on user roles (guest, host, admin).
 
-   - id: Unique identifier for each review
+- Guests: Book and review  
+- Hosts: Manage listings  
+- Admins: Oversee operations  
 
-   - user_id: Foreign key referencing the reviewer
+> **Why it matters**: Prevents unauthorized actions and data tampering.
 
-   - property_id: Foreign key referencing the property
+---
 
-   - rating: Numeric score
+### 3. Rate Limiting
 
-   - comment: Text feedback
+Controls the number of API requests per user/time window.
 
+- Prevents brute-force attacks  
+- Reduces server overload  
 
-  Relationships:
+> **Why it matters**: Ensures fair usage and platform stability.
 
-  A review belongs to one User and one Property
+---
 
+### 4. Input Validation & Sanitization
 
-5. Payments
-  Represents transactions made for bookings.
+Validates all user inputs.
 
-  Key Fields:
+- Prevents SQL injection and XSS  
+- Ensures clean and expected input  
 
-   - id: Unique identifier for each payment
+> **Why it matters**: Prevents system compromise via malicious inputs.
 
-   - booking_id: Foreign key referencing the related booking
+---
 
-   - amount: Total payment amount
+### 5. HTTPS Enforcement
 
-   - payment_method: e.g., credit card, PayPal
+All traffic is encrypted.
 
-   - status: e.g., pending, completed, failed
+- Protects against data interception and MITM attacks  
 
-  
-  Relationships:
+> **Why it matters**: Secures logins, payments, and sensitive operations.
 
-  A payment is associated with one Booking
+---
 
+### 6. Secure Payment Handling
 
+Uses third-party gateways (e.g., Stripe, PayPal) with tokenization.
 
+- No sensitive data is stored on our servers  
 
+> **Why it matters**: Ensures PCI compliance and user trust.
+
+---
 
 ## ⚙️ Technology Stack
-  - Django: A high-level Python web framework used for building the RESTful API.
-  - Django REST Framework: Provides tools for creating and managing RESTful APIs.
-  - PostgreSQL: A powerful relational database used for data storage.
-  - GraphQL: Allows for flexible and efficient querying of data.
-  - Celery: For handling asynchronous tasks such as sending notifications or processing payments.
-  - Redis: Used for caching and session management.
-  - Docker: Containerization tool for consistent development and deployment environments.
-  - CI/CD Pipelines: Automated pipelines for testing and deploying code changes.
 
-## Team Roles
-- *Backend Developer*: Responsible for implementing API endpoints, database schemas, and business logic.
-- *Database Administrator*: Manages database design, indexing, and optimizations.
-- *DevOps Engineer*: Handles deployment, monitoring, and scaling of the backend services, and facilitates cooperation between development and operations teams
-- *QA Engineer*: Ensures the backend functionalities are thoroughly tested and meet quality standards.
-  
+- **Django** – Web framework (Python)  
+- **Django REST Framework** – API support  
+- **PostgreSQL** – Relational database  
+- **GraphQL** – Flexible querying  
+- **Celery** – Async task queue  
+- **Redis** – Caching and session store  
+- **Docker** – Containerization  
+- **CI/CD Pipelines** – Deployment automation
+
+---
+
+## 👥 Team Roles
+
+- **Backend Developer** – API, database, logic implementation  
+- **Database Administrator** – Schema design, indexing, optimization  
+- **DevOps Engineer** – Deployment, monitoring, scaling  
+- **QA Engineer** – Testing and validation of backend features
