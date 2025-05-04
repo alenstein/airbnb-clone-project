@@ -44,6 +44,123 @@ The backend for the Airbnb Clone project is designed to provide a robust and sca
   7. Database Optimizations
     - Indexing: Implement indexes for fast retrieval of frequently accessed data.
     - Caching: Use caching strategies to reduce database load and improve performance.
+## Database Design
+  1. Users
+    Represents individuals using the platform, either as guests or hosts.
+
+   Key Fields:
+
+   - id: Unique identifier for each user
+
+   - name: Full name of the user
+
+   - email: Unique email address
+
+   - password_hash: Securely stored password
+ 
+   - role: Specifies whether the user is a guest, host, or admin
+
+
+  Relationships:
+
+   - A user can own multiple Properties
+
+   - A user can make multiple Bookings
+
+   - A user can leave Reviews for Properties
+
+
+  2. Properties
+  Represents the rental listings created by hosts.
+
+  Key Fields:
+
+   - id: Unique identifier for each property
+
+   - user_id: Foreign key referencing the owner (host)
+
+   - title: Name/title of the listing
+
+   - location: Address or coordinates of the property
+
+   - price_per_night: Cost to rent per night
+
+
+  Relationships:
+
+   - A property belongs to one User
+
+   - A property can have many Bookings
+
+   - A property can have multiple Reviews
+
+
+  3. Bookings
+  Represents reservations made by guests for a specific property.
+
+  Key Fields:
+
+   - id: Unique identifier for each booking
+
+   - user_id: Foreign key referencing the guest
+
+   - property_id: Foreign key referencing the booked property
+  
+   - start_date: Booking start date
+
+   - end_date: Booking end date
+
+
+  Relationships:
+
+   - A booking belongs to one User and one Property
+
+   - A booking may be linked to one Payment
+
+  
+4. Reviews
+  Represents feedback left by guests after their stay.
+
+  Key Fields:
+
+   - id: Unique identifier for each review
+
+   - user_id: Foreign key referencing the reviewer
+
+   - property_id: Foreign key referencing the property
+
+   - rating: Numeric score
+
+   - comment: Text feedback
+
+
+  Relationships:
+
+  A review belongs to one User and one Property
+
+
+5. Payments
+  Represents transactions made for bookings.
+
+  Key Fields:
+
+   - id: Unique identifier for each payment
+
+   - booking_id: Foreign key referencing the related booking
+
+   - amount: Total payment amount
+
+   - payment_method: e.g., credit card, PayPal
+
+   - status: e.g., pending, completed, failed
+
+  
+  Relationships:
+
+  A payment is associated with one Booking
+
+
+
 
 
 ## ⚙️ Technology Stack
