@@ -206,6 +206,29 @@ Uses third-party gateways (e.g., Stripe, PayPal) with tokenization.
 
 ---
 
+## 🔄 CI/CD Pipeline
+
+Continuous Integration and Continuous Deployment (CI/CD) pipelines automate the software development lifecycle, enabling teams to integrate code changes frequently, run automated tests, and deploy updates efficiently. This ensures faster delivery, higher reliability, and better collaboration across the development team.
+
+### 🚀 Importance of CI/CD in the Project
+
+- **Improved Collaboration**: CI/CD promotes seamless cooperation between developers, QA engineers, and DevOps by establishing a unified workflow and providing immediate feedback on code changes.
+
+- **Faster Development Cycles**: By automating build, test, and deployment processes, the team can release features and fixes quickly, adapting rapidly to user needs.
+
+- **Consistent Quality**: Automated tests catch issues early, ensuring that only verified code is deployed to production.
+
+- **Reliable Deployments**: The pipeline reduces the risk of human error by maintaining consistent deployment procedures across all environments.
+
+### 🛠️ Tools Used
+
+- **GitHub Actions**: For automating tasks such as testing, building, and deploying code on every push or pull request.
+- **Docker**: To containerize the application, ensuring consistency between development, testing, and production environments.
+- **Deployment Platforms**: Services like Heroku, Render, or AWS can be used to host and scale the application reliably.
+
+---
+
+
 ## ⚙️ Technology Stack
 
 - **Django** – Web framework (Python)  
